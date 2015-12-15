@@ -14,6 +14,7 @@
 <body>
 	<center>
 		<h1>Cambuzz</h1>
+		check
 		<p>A new way of exploring your campus</p>
 		<p>
 			<form action="index.php" method="post">
