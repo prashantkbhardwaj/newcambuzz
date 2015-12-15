@@ -38,7 +38,7 @@ if(isset($_POST['submit'])){
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-<head><title>Riya's Portal</title>
+<head><title>Cambuzz VITCC</title>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript"><!--
@@ -54,7 +54,7 @@ $(function() {
 </head>
 <body>
 <div id="header">
-<h1>Riya's Portal</h1>
+<h1>Cambuzz VITCC</h1>
 </div>
 <div id="main">
 <div id="navigation">

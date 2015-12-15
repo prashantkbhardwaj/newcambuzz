@@ -1,8 +1,22 @@
 <?php
+	function redirect_to($new_location) {
+		header("Location: " . $new_location);
+		exit; 
+	}
+?>
+<?php
+	$view = " ";
 	if (isset($_POST['submit'])) {
-		$campus = $_POST['campus'];
+		$campus = $_POST['campus'];		
 		if ($campus=="blank") {
-			$view = "<b>Select your campus!</b>"
+			$view = "<b>Select your campus!</b>";
+		} else {
+			$view = " ";
+			if ($campus=="vitcc") {
+				redirect_to("vitcc/public/login.php");
+			} elseif ($campus=="creane") {
+				redirect_to("creane/public/login.php");
+			}
 		}
 	}
 ?>
@@ -14,7 +28,6 @@
 <body>
 	<center>
 		<h1>Cambuzz</h1>
-		check
 		<p>A new way of exploring your campus</p>
 		<p>
 			<form action="index.php" method="post">
@@ -25,6 +38,11 @@
 				</select>
 				<input type="submit" name="submit" value="Go!">
 			</form>
+		</p>
+		<p>
+			<?php
+				echo $view;
+			?>
 		</p>
 	</center>
 </body>

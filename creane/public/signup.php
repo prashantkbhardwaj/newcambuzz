@@ -21,10 +21,11 @@ if(isset($_POST['submit'])){
 		$name = $_POST['name'];
 		$username = mysql_prep($_POST["username"]);
 		$email = $_POST['email'];
-		$hashed_password = password_encrypt($_POST["password"]);	  		
+		$hashed_password = password_encrypt($_POST["password"]);
+		$category = $_POST['category'];	  		
 
-		$query = "INSERT INTO users (name, username, email, hashed_password)";
-		$query .= " VALUES ('{$name}', '{$username}', '{$email}', '{$hashed_password}')";
+		$query = "INSERT INTO users (name, username, email, hashed_password, category)";
+		$query .= " VALUES ('{$name}', '{$username}', '{$email}', '{$hashed_password}', '{$category}')";
 		$result = mysqli_query($conn, $query);
 
         if ($result) {
@@ -38,7 +39,7 @@ if(isset($_POST['submit'])){
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
-<head><title>Riya's Portal</title>
+<head><title>Cambuzz Creane</title>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script type="text/javascript"><!--
@@ -54,7 +55,7 @@ $(function() {
 </head>
 <body>
 <div id="header">
-<h1>Riya's Portal</h1>
+<h1>Cambuzz Creane</h1>
 </div>
 <div id="main">
 <div id="navigation">
@@ -88,6 +89,12 @@ $(function() {
 	   				<td>Repeat Password</td>
 	   				<td><input type="password" id="txtConfirmPassword" required /></td>
 	   				<td><div class="registrationFormAlert" id="divCheckPasswordMatch" style="margin-left: 160px;"></div></td>
+	   			</tr>
+	   			<tr>
+	   				<td>Category</td>
+	   				<td><input type="radio" name="category" value="student" selected> Student</td>	   				
+	   				<td><input type="radio" name="category" value="parent"> Parent</td>	   				
+	   				<td><input type="radio" name="category" value="teacher"> Teacher</td>
 	   			</tr>
 	   			<tr>
 	   				<td><input name="submit" type="submit" value="Submit"></td>
