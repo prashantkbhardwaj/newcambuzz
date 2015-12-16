@@ -54,7 +54,27 @@
 				<button id="buzz">Buzz</button>
 			</div>
 			<div id="divbuzz" style="display: none;">			
-				check
+				<p>
+					<form>
+						<table>
+							<tr>
+								<td><input type="text" name="title" required></td>
+							</tr>
+							<tr>
+								<td><textarea name="content" required></textarea></td>
+							</tr>
+							<tr>
+								<td><input type="file" name="poster"></td>
+							</tr>
+							<tr>
+								<td><input type="datetime-local" name="endtime" required></td>
+							</tr>
+							<tr>
+								<td><input type="submit" name="submit" value="Submit"></td>
+							</tr>
+						</table>
+					</form>
+				</p>
 			</div>
 		</p>	
 		<p>
@@ -89,13 +109,19 @@
 					echo $feed_view['post_time']."<br>";					
 					if ($feed_view['status']!=" ") {
 						echo $feed_view['status'];
-						echo "<br>";
+						echo "<br><br>";
 					}
 					if ($feed_view['picset']==1) {
 						$picture_time = strtotime($feed_view['post_time']);                                                    
                         $pictureid=$feed_view['post_user'].date("Y-m-d H-i-s", $picture_time);                                                                                                      
                         echo '<img src="images/' . $pictureid . '.jpg" >';
-                        echo "<br>";
+                        echo "<br><hr>";
+                        echo "Like  Comment";
+                        echo "<hr><br>";
+					} else {
+						echo "<hr>";
+						echo "Like  Comment";
+						echo "<hr><br>";
 					}
 				}				
 			?>
