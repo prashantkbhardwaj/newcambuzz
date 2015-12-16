@@ -45,5 +45,6 @@
 			?>
 		</p>
 	</center>
+	Hello world
 </body>
 </html>
