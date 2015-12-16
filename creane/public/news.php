@@ -38,6 +38,8 @@
 	}
 ?>
 <?php include("../includes/layouts/header.php");?>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <div id="main">
 	<div id="navigation">
 		<ul>			
@@ -46,7 +48,15 @@
 	</div>
 	<div id="page">
 		<h2>News Feed</h2>
-		<div style="text-align: left;"><b><u>Welcome, <?php echo htmlentities($name_title["name"]); ?></u></b></div>		
+		<div style="text-align: left;"><b><u>Welcome, <?php echo htmlentities($name_title["name"]); ?></u></b></div>	
+		<p>
+			<div <?php //echo $show; ?> >
+				<button id="buzz">Buzz</button>
+			</div>
+			<div id="divbuzz" style="display: none;">			
+				check
+			</div>
+		</p>	
 		<p>
 			<form action="news.php" method="post" enctype="multipart/form-data">
 				<table>
@@ -92,4 +102,9 @@
 		</p>
 	</div>
 </div>
+<script type="text/javascript">
+	$('#buzz').click(function() {
+		$('#divbuzz').slideDown();		
+	});	
+</script>
 <?php include("../includes/layouts/footer.php");?>
