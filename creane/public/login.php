@@ -4,7 +4,7 @@
 <?php require_once("../includes/validation_functions.php"); ?>
 <?php
 if (logged_in()) {
-	redirect_to ("landing.php");
+	redirect_to ("news.php");
 }
 ?>
 <?php
@@ -24,7 +24,7 @@ if (isset($_POST['submit'])) {
 
 			$_SESSION["user_id"] = $found_user["id"];
 			$_SESSION["username"] = $found_user["username"];
-			redirect_to("landing.php");
+			redirect_to("news.php");
 		} else {
 			$_SESSION["message"] = "Username/password not found.";
 		}

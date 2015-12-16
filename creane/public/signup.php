@@ -4,7 +4,7 @@
 <?php require_once("../includes/validation_functions.php"); ?>
 <?php
 if (logged_in()) {
-	redirect_to ("landing.php");
+	redirect_to ("news.php");
 }
 ?>
 <?php
@@ -22,7 +22,7 @@ if(isset($_POST['submit'])){
 		$username = mysql_prep($_POST["username"]);
 		$email = $_POST['email'];
 		$hashed_password = password_encrypt($_POST["password"]);
-		$category = $_POST['category'];	  		
+		$category = $_POST['category'];				
 
 		$query = "INSERT INTO users (name, username, email, hashed_password, category)";
 		$query .= " VALUES ('{$name}', '{$username}', '{$email}', '{$hashed_password}', '{$category}')";
@@ -92,10 +92,10 @@ $(function() {
 	   			</tr>
 	   			<tr>
 	   				<td>Category</td>
-	   				<td><input type="radio" name="category" value="student" selected> Student</td>	   				
+	   				<td><input type="radio" name="category" value="student" checked> Student</td>	   				
 	   				<td><input type="radio" name="category" value="parent"> Parent</td>	   				
 	   				<td><input type="radio" name="category" value="teacher"> Teacher</td>
-	   			</tr>
+	   			</tr>	   			
 	   			<tr>
 	   				<td><input name="submit" type="submit" value="Submit"></td>
 	   			</tr>
