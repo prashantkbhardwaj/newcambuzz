@@ -10,7 +10,7 @@
 	$name_title = mysqli_fetch_assoc($name_result);
 ?>
 
-<?php
+<?php 
 	date_default_timezone_set('Asia/Calcutta');
     $id_time = date("Y-m-d H-i-s");
     $picture_id = $current_user.$id_time;
@@ -59,8 +59,8 @@
 		date_default_timezone_set('Asia/Calcutta');
 		$post_time = date("Y-m-d\TH:i:s");
 
-		$buzz_query = "INSERT INTO buzzes (title, content, end_time, poset, post_user, post_time) VALUES ('{$title}', '{$content}', '{$end_time}', {$poset}, '{$current_user}', '{$post_time}')";
-		$buzz_sql = mysqli_query($conn, $buzz_query);
+		$query = "INSERT INTO buzzes (title, content, end_time, poset, post_user, post_time) VALUES ('{$title}', '{$content}', '{$end_time}', {$poset}, '{$current_user}', '{$post_time}')";
+		$sql = mysqli_query($conn, $query);
 	}
 ?>
 
@@ -144,15 +144,15 @@
 				}				
 			?>
 		</p>
-		<!--this is for the buzz. -->
+		<!--this is for the buzz.--> 
 		<p>
-			<?php
-				$feed_query = "SELECT * FROM feeds ORDER BY id DESC";
-				$feed_result = mysqli_query($conn, $feed_query);
-				confirm_query($feed_result);
-				while ($feed_view = mysqli_fetch_assoc($feed_result)) {
-					$feed_user = $feed_view['post_user'];
-					$user_query = "SELECT * FROM users WHERE username = '{$feed_user}'";
+			<?php  
+				$buzz_query = "SELECT * FROM buzzes ORDER BY id DESC";
+				$buzz_result = mysqli_query($conn, $buzz_query);
+				confirm_query($buzz_result);
+				while ($buzz_view = mysqli_fetch_assoc($buzz_result)) {
+					$buzz_user = $buzz_view['post_user'];
+					$user_query = "SELECT * FROM users WHERE username = '{$buzz_user}'";
 					$user_result = mysqli_query($conn, $user_query);
 					confirm_query($user_query);
 					$user_name = mysqli_fetch_assoc($user_result);
@@ -160,14 +160,14 @@
 						echo "<img src='images/nopic.png' style='border-radius: 50%;' height='10%' width='10%'>";
 					}
 					echo $user_name['name']."<br>";
-					echo $feed_view['post_time']."<br>";					
-					if ($feed_view['status']!=" ") {
-						echo $feed_view['status'];
-						echo "<br>";
-					}
-					if ($feed_view['picset']==1) {
-						$picture_time = strtotime($feed_view['post_time']);                                                    
-                        $pictureid=$feed_view['post_user'].date("Y-m-d H-i-s", $picture_time);                                                                                                      
+					echo $buzz_view['post_time']."<br>";					
+					echo $buzz_view['title']."<br />";
+					echo $buzz_view['content'];
+					echo "<br>";
+					
+					if ($buzz_view['poset']==1) {
+						$picture_time = strtotime($buzz_view['post_time']);                                                    
+                        $pictureid = $buzz_view['post_user'].date("Y-m-d H-i-s", $picture_time);                                                                                                      
                         echo '<img src="images/' . $pictureid . '.jpg" >';
                         echo "<br>";
 					}
