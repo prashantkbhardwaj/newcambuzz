@@ -60,17 +60,36 @@
                     echo "Like";
                    	echo "<button>Comment</button>";                        
                     echo "<hr><br>";
+                    $quest_id = $feed_view['id'];
+                    $display_query = "SELECT * FROM comments WHERE qid = {$quest_id}";
+					$display_result = mysqli_query($conn, $display_query);
+					confirm_query($display_query);
+					while ($display_comment = mysqli_fetch_assoc($display_result)) {
+						$comment_user = $display_comment['comment_user'];
+						$comment_user_query = "SELECT * FROM users WHERE username = '{$comment_user}'";
+						$comment_user_result = mysqli_query($conn, $comment_user_query);
+						confirm_query($comment_user_query);
+						$comment_user_name = mysqli_fetch_assoc($comment_user_result);									 
+						if ($comment_user_name['propic']==0) {
+							echo "<img src='images/nopic.png' style='border-radius: 50%;' height='5%' width='5%'>";
+						}
+						echo $comment_user_name['name']."<br>";
+						echo $display_comment['comment_time']."<br>";
+						echo $display_comment['comment'];
+						echo "<br><br>";
+					}
+                    echo "<br>";
                     echo "<form action='qna.php' method='post'>";
-                    	echo "<input type='text' name='c".$feed_view['id']."' >";
-                    echo "</form>";
-                    $quest_id = $feed_view['id'];                    
+                    	echo "<input type='text' name='c".$feed_view['id']."' ><br><hr><br>";
+                    echo "</form>";                                        
                     if (isset($_POST['c'.$quest_id])) {
-                    	$comment = $_POST['c'.$quest_id]; 
+                    	$comment = $_POST['c'.$quest_id];  
 	                    $qid = $feed_view['id'];
 	                    date_default_timezone_set('Asia/Calcutta');
 	    				$comment_time = date("Y-m-d\TH:i:s");
 	                    $comment_query = "INSERT INTO comments (comment, comment_user, comment_time, qid) VALUES ('{$comment}', '{$current_user}', '{$comment_time}', {$qid})";
-	    				mysqli_query($conn, $comment_query);   
+	    				mysqli_query($conn, $comment_query); 
+	    				redirect_to('qna.php');  
 	    			}
 				}				
 			?>
