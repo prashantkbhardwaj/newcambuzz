@@ -58,11 +58,20 @@
 					echo "<br>";										
                     echo "<br><hr>";
                     echo "Like";
-                   	echo "<button onclick = ''>Comment</button>";                        
+                   	echo "<button>Comment</button>";                        
                     echo "<hr><br>";
-                    echo "<form>";
-                    	echo "<input type='text' name='c".$feed_view['id']." >";
-                    echo "</form>";                    		
+                    echo "<form action='qna.php' method='post'>";
+                    	echo "<input type='text' name='c".$feed_view['id']."' >";
+                    echo "</form>";
+                    $quest_id = $feed_view['id'];                    
+                    if (isset($_POST['c'.$quest_id])) {
+                    	$comment = $_POST['c'.$quest_id]; 
+	                    $qid = $feed_view['id'];
+	                    date_default_timezone_set('Asia/Calcutta');
+	    				$comment_time = date("Y-m-d\TH:i:s");
+	                    $comment_query = "INSERT INTO comments (comment, comment_user, comment_time, qid) VALUES ('{$comment}', '{$current_user}', '{$comment_time}', {$qid})";
+	    				mysqli_query($conn, $comment_query);   
+	    			}
 				}				
 			?>
 		</p>
