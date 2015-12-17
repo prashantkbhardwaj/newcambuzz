@@ -101,7 +101,7 @@
 					$user_query = "SELECT * FROM users WHERE username = '{$feed_user}'";
 					$user_result = mysqli_query($conn, $user_query);
 					confirm_query($user_query);
-					$user_name = mysqli_fetch_assoc($user_result);
+					$user_name = mysqli_fetch_assoc($user_result);									 
 					if ($user_name['propic']==0) {
 						echo "<img src='images/nopic.png' style='border-radius: 50%;' height='10%' width='10%'>";
 					}
@@ -116,12 +116,22 @@
                         $pictureid=$feed_view['post_user'].date("Y-m-d H-i-s", $picture_time);                                                                                                      
                         echo '<img src="images/' . $pictureid . '.jpg" >';
                         echo "<br><hr>";
-                        echo "Like  Comment";
+                        echo "Like";
+                        echo "<button onclick = ''>Comment</button>";
+                        
                         echo "<hr><br>";
+                        echo "<div id='did' style='display: none;'>";
+                        echo "Check";
+                        echo "</div>";
 					} else {
 						echo "<hr>";
-						echo "Like  Comment";
+						echo "Like";
+						echo "<button id = 'cid'>Comment</button>";
+						
 						echo "<hr><br>";
+						echo "<div id='did' style='display: none;'>";
+                        echo "Check";
+                        echo "</div>";
 					}
 				}				
 			?>
@@ -132,5 +142,10 @@
 	$('#buzz').click(function() {
 		$('#divbuzz').slideDown();		
 	});	
+</script>
+<script type="text/javascript">
+	$('#cid').click(function() {
+		$('#did').slideDown();		
+	});		
 </script>
 <?php include("../includes/layouts/footer.php");?>
