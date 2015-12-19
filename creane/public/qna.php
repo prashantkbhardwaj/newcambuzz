@@ -24,6 +24,7 @@
 	<div id="navigation">
 		<ul>			
 			<li><a href="logout.php">Logout</a></li><br/><br/>
+			<li><a href="news.php">News feed</a></li><br><br>
 		</ul>
 	</div>
 	<div id="page">
@@ -58,24 +59,24 @@
 					echo "<br>";										
                     echo "<br><hr>";
                     echo "Like";
-                   	echo "<button>Comment</button>";                        
+                   	echo "<button>answer</button>";                        
                     echo "<hr><br>";
                     $quest_id = $feed_view['id'];
-                    $display_query = "SELECT * FROM comments WHERE qid = {$quest_id}";
+                    $display_query = "SELECT * FROM answers WHERE qid = {$quest_id}";
 					$display_result = mysqli_query($conn, $display_query);
 					confirm_query($display_query);
-					while ($display_comment = mysqli_fetch_assoc($display_result)) {
-						$comment_user = $display_comment['comment_user'];
-						$comment_user_query = "SELECT * FROM users WHERE username = '{$comment_user}'";
-						$comment_user_result = mysqli_query($conn, $comment_user_query);
-						confirm_query($comment_user_query);
-						$comment_user_name = mysqli_fetch_assoc($comment_user_result);									 
-						if ($comment_user_name['propic']==0) {
+					while ($display_answer = mysqli_fetch_assoc($display_result)) {
+						$answer_user = $display_answer['answer_user'];
+						$answer_user_query = "SELECT * FROM users WHERE username = '{$answer_user}'";
+						$answer_user_result = mysqli_query($conn, $answer_user_query);
+						confirm_query($answer_user_query);
+						$answer_user_name = mysqli_fetch_assoc($answer_user_result);									 
+						if ($answer_user_name['propic']==0) {
 							echo "<img src='images/nopic.png' style='border-radius: 50%;' height='5%' width='5%'>";
 						}
-						echo $comment_user_name['name']."<br>";
-						echo $display_comment['comment_time']."<br>";
-						echo $display_comment['comment'];
+						echo $answer_user_name['name']."<br>";
+						echo $display_answer['answer_time']."<br>";
+						echo $display_answer['answer'];
 						echo "<br><br>";
 					}
                     echo "<br>";
@@ -83,12 +84,12 @@
                     	echo "<input type='text' name='c".$feed_view['id']."' ><br><hr><br>";
                     echo "</form>";                                        
                     if (isset($_POST['c'.$quest_id])) {
-                    	$comment = $_POST['c'.$quest_id];  
+                    	$answer = $_POST['c'.$quest_id];  
 	                    $qid = $feed_view['id'];
 	                    date_default_timezone_set('Asia/Calcutta');
-	    				$comment_time = date("Y-m-d\TH:i:s");
-	                    $comment_query = "INSERT INTO comments (comment, comment_user, comment_time, qid) VALUES ('{$comment}', '{$current_user}', '{$comment_time}', {$qid})";
-	    				mysqli_query($conn, $comment_query); 
+	    				$answer_time = date("Y-m-d\TH:i:s");
+	                    $answer_query = "INSERT INTO answers (answer, answer_user, answer_time, qid) VALUES ('{$answer}', '{$current_user}', '{$answer_time}', {$qid})";
+	    				mysqli_query($conn, $answer_query); 
 	    				redirect_to('qna.php');  
 	    			}
 				}				

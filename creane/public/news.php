@@ -44,6 +44,7 @@
 	<div id="navigation">
 		<ul>			
 			<li><a href="logout.php">Logout</a></li><br/><br/>
+			<li><a href="qna.php">Ask a question</a></li><br><br>
 		</ul>
 	</div>
 	<div id="page">
@@ -117,21 +118,75 @@
                         echo '<img src="images/' . $pictureid . '.jpg" >';
                         echo "<br><hr>";
                         echo "Like";
-                        echo "<button onclick = ''>Comment</button>";
-                        
+                        echo "<button>Comment</button>";                        
                         echo "<hr><br>";
-                        echo "<div id='did' style='display: none;'>";
-                        echo "Check";
-                        echo "</div>";
+                        $status_id = $feed_view['id'];
+	                    $display_query = "SELECT * FROM comments WHERE sid = {$status_id}";
+						$display_result = mysqli_query($conn, $display_query);
+						confirm_query($display_query);
+						while ($display_comment = mysqli_fetch_assoc($display_result)) {
+							$comment_user = $display_comment['comment_user'];
+							$comment_user_query = "SELECT * FROM users WHERE username = '{$comment_user}'";
+							$comment_user_result = mysqli_query($conn, $comment_user_query);
+							confirm_query($comment_user_query);
+							$comment_user_name = mysqli_fetch_assoc($comment_user_result);									 
+							if ($comment_user_name['propic']==0) {
+								echo "<img src='images/nopic.png' style='border-radius: 50%;' height='5%' width='5%'>";
+							}
+							echo $comment_user_name['name']."<br>";
+							echo $display_comment['comment_time']."<br>";
+							echo $display_comment['comment'];
+							echo "<br><br>";
+						}
+	                    echo "<br>";
+	                    echo "<form action='news.php' method='post'>";
+	                    	echo "<input type='text' name='c".$feed_view['id']."' ><br><hr><br>";
+	                    echo "</form>";                                        
+	                    if (isset($_POST['c'.$status_id])) {
+	                    	$comment = $_POST['c'.$status_id];  
+		                    $sid = $feed_view['id'];
+		                    date_default_timezone_set('Asia/Calcutta');
+		    				$comment_time = date("Y-m-d\TH:i:s");
+		                    $comment_query = "INSERT INTO comments (comment, comment_user, comment_time, sid) VALUES ('{$comment}', '{$current_user}', '{$comment_time}', {$sid})";
+		    				mysqli_query($conn, $comment_query); 
+		    				redirect_to('news.php');  
+		    			}
 					} else {
 						echo "<hr>";
 						echo "Like";
-						echo "<button id = 'cid'>Comment</button>";
-						
+						echo "<button>Comment</button>";						
 						echo "<hr><br>";
-						echo "<div id='did' style='display: none;'>";
-                        echo "Check";
-                        echo "</div>";
+						$status_id = $feed_view['id'];
+	                    $display_query = "SELECT * FROM comments WHERE sid = {$status_id}";
+						$display_result = mysqli_query($conn, $display_query);
+						confirm_query($display_query);
+						while ($display_comment = mysqli_fetch_assoc($display_result)) {
+							$comment_user = $display_comment['comment_user'];
+							$comment_user_query = "SELECT * FROM users WHERE username = '{$comment_user}'";
+							$comment_user_result = mysqli_query($conn, $comment_user_query);
+							confirm_query($comment_user_query);
+							$comment_user_name = mysqli_fetch_assoc($comment_user_result);									 
+							if ($comment_user_name['propic']==0) {
+								echo "<img src='images/nopic.png' style='border-radius: 50%;' height='5%' width='5%'>";
+							}
+							echo $comment_user_name['name']."<br>";
+							echo $display_comment['comment_time']."<br>";
+							echo $display_comment['comment'];
+							echo "<br><br>";
+						}
+	                    echo "<br>";
+	                    echo "<form action='news.php' method='post'>";
+	                    	echo "<input type='text' name='c".$feed_view['id']."' ><br><hr><br>";
+	                    echo "</form>";                                        
+	                    if (isset($_POST['c'.$status_id])) {
+	                    	$comment = $_POST['c'.$status_id];  
+		                    $sid = $feed_view['id'];
+		                    date_default_timezone_set('Asia/Calcutta');
+		    				$comment_time = date("Y-m-d\TH:i:s");
+		                    $comment_query = "INSERT INTO comments (comment, comment_user, comment_time, sid) VALUES ('{$comment}', '{$current_user}', '{$comment_time}', {$sid})";
+		    				mysqli_query($conn, $comment_query); 
+		    				redirect_to('news.php');  
+		    			}
 					}
 				}				
 			?>
@@ -142,10 +197,5 @@
 	$('#buzz').click(function() {
 		$('#divbuzz').slideDown();		
 	});	
-</script>
-<script type="text/javascript">
-	$('#cid').click(function() {
-		$('#did').slideDown();		
-	});		
 </script>
 <?php include("../includes/layouts/footer.php");?>
