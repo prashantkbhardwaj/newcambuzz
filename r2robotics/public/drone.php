@@ -1,29 +1,12 @@
 <?php require_once("../includes/db_connection.php");?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title></title>
-</head>
-<body>
-	<form action="map.php" method="get">
-		<table>			
-			<tr>
-				<td>Altitude</td>
-				<td><input type="text" name="altitude" required></td>
-			</tr>
-			<tr>
-				<td>Latitude</td>
-				<td><input type="text" name="latitude" required></td>
-			</tr>
-			<tr>
-				<td>Longitude</td>
-				<td><input type="text" name="longitude" required></td>
-			</tr>
-			<tr>
-				<td><input type="submit" name="submit" value="Submit"></td>
-			</tr>
-		</table>
-	</form>
-</body>
-</html>
+<?php
+	$drone_id = $_GET['drone_id'];
+	$altitude = $_GET['altitude'];
+	$latitude = $_GET['latitude'];
+	$longitude = $_GET['longitude'];
+	date_default_timezone_set('Asia/Calcutta');
+    $location_time = date("Y-m-d\TH:i:s");
 
+   	$query = "INSERT INTO drones (drone_id, altitude, latitude, longitude, location_time) VALUES ({$drone_id}, {$altitude}, {$latitude}, {$longitude}), '{$location_time}'";
+   	mysqli_query($conn, $query);
+?>
