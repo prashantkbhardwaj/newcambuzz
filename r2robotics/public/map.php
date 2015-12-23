@@ -1,6 +1,7 @@
+<?php require_once("../includes/db_connection.php");?>
 <?php
-	$latitude = $_GET['latitude'];
-	$longitude = $_GET['longitude'];
+	//$latitude = $_GET['latitude'];
+	//$longitude = $_GET['longitude'];
 ?>
 <!DOCTYPE html>
 <html>
