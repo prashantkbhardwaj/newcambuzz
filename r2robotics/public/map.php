@@ -12,8 +12,10 @@
 <textarea  id="responsecontainer" style="display: none;"></textarea>
 <script>	
 	function initialize()
-	{		
-		var mapProp = {		  	
+	{	
+		var marker;			
+		var mapProp = {	
+			center: new google.maps.LatLng(0,0),	  	
 		  	zoom:15,
 		  	mapTypeId:google.maps.MapTypeId.ROADMAP
 		};	
@@ -25,14 +27,18 @@
 			var x = document.getElementById("responsecontainer").value;
 			var locate = x.split(',');
 			var position=new google.maps.LatLng(locate[0], locate[1]);					
-			var marker=new google.maps.Marker({  
-				position: position,		
-				map: map,				
-		  	});		
-		  	map.setCenter(position);					
+			if(marker != null){
+            	marker.setMap(null);          
+        	}
+        	marker = new google.maps.Marker({
+            	position: position,
+            	map: map,            
+        	});
+		  	map.setCenter(position);		  					
 			}, 1000);
 			$.ajaxSetup({ cache: false});		
 		});		
+
 	}
 	google.maps.event.addDomListener(window, 'load', initialize);		
 </script> 	
