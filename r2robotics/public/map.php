@@ -1,4 +1,19 @@
 <?php require_once("../includes/db_connection.php");?>
+<?php require_once("../includes/functions.php");?>
+<?php
+	$drone = find_drone_by_id($_GET["drone_id"]);
+	if (!$drone) {
+		redirect_to("drone_count.php");
+	}
+	$drone_id = $drone["drone_id"];
+?>
+<?php
+	$count = "SELECT count( DISTINCT(drone_id) ) FROM drones";
+	$count_result = mysqli_query($conn, $count);
+	confirm_query($count_result);
+    $row = mysqli_fetch_array($count_result);
+    $total_drones = $row[0];    
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,7 +23,10 @@
 <body>
 <center>
 	<div id="googleMap" style="width:700px;height:580px;"></div>
+	<h3><a href="drone_count.php">Go to drone list</a></h3>
 </center>
+<textarea id="dcount" style="display: none;"><?php echo $total_drones; ?></textarea>
+<textarea id="did" style="display: none;"><?php echo $drone_id; ?></textarea>
 <textarea  id="responsecontainer" style="display: none;"></textarea>
 <script>	
 	function initialize()
@@ -25,16 +43,23 @@
 		var refreshId = setInterval(function() {
 			$("#responsecontainer").load('select.php?randval='+ Math.random());
 			var x = document.getElementById("responsecontainer").value;
+			var drone = document.getElementById("did").value;
+			var dcount = document.getElementById("dcount").value;
+			var loop = dcount*3;
 			var locate = x.split(',');
-			var position=new google.maps.LatLng(locate[0], locate[1]);					
-			if(marker != null){
-            	marker.setMap(null);          
-        	}
-        	marker = new google.maps.Marker({
-            	position: position,
-            	map: map,            
-        	});
-		  	map.setCenter(position);		  					
+			for (var i = 2; i < loop; i+=1) {
+				if (locate[i]==drone) {
+					var position=new google.maps.LatLng(locate[i-2], locate[i-1]);					
+					if(marker != null){
+		            	marker.setMap(null);          
+		        	}
+		        	marker = new google.maps.Marker({
+		            	position: position,
+		            	map: map,            
+		        	});
+				  	map.setCenter(position);
+				};
+			};					  					
 			}, 1000);
 			$.ajaxSetup({ cache: false});		
 		});		

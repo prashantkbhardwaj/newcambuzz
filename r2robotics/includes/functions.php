@@ -115,4 +115,21 @@ function confirm_logged_in() {
 		redirect_to("login.php");
 	}
 }
+function find_drone_by_id($drone_id) {
+	global $conn;
+
+	$safe_drone_id = mysqli_real_escape_string($conn, $drone_id);
+
+	$query = "SELECT * ";
+	$query .= "FROM drones ";
+	$query .= "WHERE drone_id = {$safe_drone_id} ";
+	$query .= "LIMIT 1";
+	$drone_set = mysqli_query($conn, $query);
+	confirm_query($drone_set);
+	if ($drone = mysqli_fetch_assoc($drone_set)) {
+		return $drone;
+	} else {
+		return null;
+	}
+}
 ?>
