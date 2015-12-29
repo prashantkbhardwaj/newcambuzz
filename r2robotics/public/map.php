@@ -47,9 +47,9 @@
 			var dcount = document.getElementById("dcount").value;
 			var loop = dcount*3;
 			var locate = x.split(',');
-			for (var i = 2; i < loop; i+=1) {
+			for (var i = 2; i < loop; i+=3) {
 				if (locate[i]==drone) {
-					var position=new google.maps.LatLng(locate[i-2], locate[i-1]);					
+					var position=new google.maps.LatLng(locate[i-2], locate[i-1]);						
 					if(marker != null){
 		            	marker.setMap(null);          
 		        	}

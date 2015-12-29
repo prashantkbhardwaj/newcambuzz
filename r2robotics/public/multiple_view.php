@@ -37,12 +37,12 @@
 				$("#responsecontainer").load('select.php?randval='+ Math.random());
 				var x = document.getElementById("responsecontainer").value;			
 				var dcount = document.getElementById("dcount").value;
-				var loop = dcount*3;
-				var locate = x.split(',');
-				var position = [];
+				var loop = dcount*3;				
+				var locate = x.split(',');				
+				var position = new Array(loop);
 				var b = 2;
-				for (var i = 2; i < loop; i+=1) {				
-					position[i-b]=new google.maps.LatLng(locate[i-2], locate[i-1]);					
+				for (var i = 2; i <loop; i+=3) {					
+					position[i-b]=new google.maps.LatLng(locate[i-2], locate[i-1]);									
 					if(marker[i-b] != null){
 		            	marker[i-b].setMap(null);          
 		        	}
