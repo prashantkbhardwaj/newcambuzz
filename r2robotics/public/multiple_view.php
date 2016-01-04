@@ -1,5 +1,7 @@
+<?php require_once("../includes/session.php");?>
 <?php require_once("../includes/db_connection.php");?>
 <?php require_once("../includes/functions.php");?>
+<?php confirm_logged_in(); ?>
 <?php
 	$count = "SELECT count( DISTINCT(drone_id) ) FROM drones";
 	$count_result = mysqli_query($conn, $count);
@@ -16,7 +18,7 @@
 <body>
 <center>
 	<div id="googleMap" style="width:700px;height:580px;"></div>
-	<h3><a href="drone_count.php">Go to drone list</a></h3>
+	<h3><a href="landing.php">Home</a></h3>
 </center>
 <textarea id="dcount" style="display: none;"><?php echo $total_drones; ?></textarea>
 <textarea  id="responsecontainer" style="display: none;"></textarea>
@@ -37,12 +39,12 @@
 				$("#responsecontainer").load('select.php?randval='+ Math.random());
 				var x = document.getElementById("responsecontainer").value;			
 				var dcount = document.getElementById("dcount").value;
-				var loop = dcount*3;				
+				var loop = dcount*4;				
 				var locate = x.split(',');				
 				var position = new Array(loop);
-				var b = 2;
-				for (var i = 2; i <loop; i+=3) {					
-					position[i-b]=new google.maps.LatLng(locate[i-2], locate[i-1]);									
+				var b = 3;
+				for (var i = 3; i <loop; i+=4) {					
+					position[i-b]=new google.maps.LatLng(locate[i-3], locate[i-2]);									
 					if(marker[i-b] != null){
 		            	marker[i-b].setMap(null);          
 		        	}
@@ -51,7 +53,7 @@
 		            	map: map,            
 		        	});
 				  	map.setCenter(stat);
-				  	b = 2*i;				
+				  	b = 3*i;				
 				};					  					
 			}, 1000);
 			$.ajaxSetup({ cache: false});		

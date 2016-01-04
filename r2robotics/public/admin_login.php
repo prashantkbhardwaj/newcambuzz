@@ -3,8 +3,8 @@
 <?php require_once("../includes/functions.php");?>
 <?php require_once("../includes/validation_functions.php"); ?>
 <?php
-if (logged_in()) {
-	redirect_to ("landing.php");
+if (admin_logged_in()) {
+	redirect_to ("admin_index.php");
 }
 ?>
 <?php
@@ -16,17 +16,17 @@ if (isset($_POST['submit'])) {
 	
 	if (empty($errors)) {
 
-		$username = mysqli_real_escape_string($conn, htmlspecialchars($_POST['username']));
+		$username = mysqli_real_escape_string($conn, htmlspecialchars($_POST['username']));		
 		$password = mysqli_real_escape_string($conn, htmlspecialchars($_POST['password']));
-		$found_user = attempt_login($username, $password);
+		$found_admin = attempt_admin_login($username, $password);
 
-		if ($found_user) {
+		if ($found_admin) {
 
-			$_SESSION["user_id"] = $found_user["id"];
-			$_SESSION["username"] = $found_user["username"];
-			redirect_to("landing.php");
+			$_SESSION["admin_id"] = $found_admin["id"];
+			$_SESSION["username"] = $found_admin["username"];
+			redirect_to("admin_index.php");
 		} else {
-			$_SESSION["message"] = "Hub ID/password not found.";
+			$_SESSION["message"] = "Username/password not found.";
 		}
 	}
 } else {
@@ -43,11 +43,11 @@ if (isset($_POST['submit'])) {
 <?php echo form_errors($errors); ?>
 
 <h2>Login</h2>
-<p>Enter the Hub ID and password</p>
-<p><form action="login.php" method="post">
+	<p>Enter the <b>admin</b> username and password</p>
+<p><form action="admin_login.php" method="post">
 <table>
 	<tr>
-		<td>Hub ID </td>
+		<td>Username</td>
 		<td><input type="text" name="username" value="" required/></td>
 	</tr>
 	<tr>
@@ -59,6 +59,9 @@ if (isset($_POST['submit'])) {
 	</tr>
 </table>
 </form>
+</p>
+<p>
+	<a href="login.php">Log in as Hub</a>
 </p>
 </div>
 </div>

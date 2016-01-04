@@ -2,7 +2,11 @@
 <?php require_once("../includes/db_connection.php"); ?>
 <?php require_once("../includes/functions.php"); ?>
 <?php require_once("../includes/validation_functions.php"); ?>
-<?php confirm_admin_logged_in(); ?>
+<?php
+if (logged_in()) {
+	redirect_to ("admin_index.php");
+}
+?>
 <?php
 if(isset($_POST['submit'])){
 	
@@ -15,10 +19,10 @@ if(isset($_POST['submit'])){
 	if (empty($errors)) {
 		
 		$username = mysql_prep(mysqli_real_escape_string($conn, htmlspecialchars($_POST['username'])));		
-		$hashed_password = password_encrypt(mysqli_real_escape_string($conn, htmlspecialchars($_POST['password'])));
+		$hashed_password = password_encrypt(mysqli_real_escape_string($conn, htmlspecialchars($_POST['username'])));
 					
 
-		$query = "INSERT INTO hubs (username, hashed_password)";
+		$query = "INSERT INTO admins (username, hashed_password)";
 		$query .= " VALUES ('{$username}', '{$hashed_password}')";
 		$result = mysqli_query($conn, $query);
 
@@ -52,10 +56,7 @@ $(function() {
 </div>
 <div id="main">
 <div id="navigation">
-	<ul>
-		<li><a href="admin_logout.php">Logout</a></li><br/><br/>
-		<li><a href="admin_index.php">Home</a></li><br/><br/>
-	</ul>
+	&nbsp;
 </div>
 <div id="page">
 <?php echo message(); ?>
@@ -63,10 +64,10 @@ $(function() {
 <h2>Sign Up</h2>
 	<p>Please enter your details.</p>
 	<p>
-	   	<form action="signup.php" method="post">
+	   	<form action="admin_signup.php" method="post">
 	   		<table>	   			
 	   			<tr>
-	   				<td>Hub ID</td>
+	   				<td>Username</td>
 	   				<td><input type="text" name="username" value="" required /></td>
 	   			</tr>
 	   			<tr>
