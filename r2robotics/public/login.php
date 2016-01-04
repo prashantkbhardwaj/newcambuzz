@@ -16,8 +16,8 @@ if (isset($_POST['submit'])) {
 	
 	if (empty($errors)) {
 
-		$username = mysqli_real_escape_string($conn, htmlspecialchars($_POST['username']));
-		$password = mysqli_real_escape_string($conn, htmlspecialchars($_POST['password']));
+		$username = $_POST['username'];
+		$password = $_POST['password'];
 		$found_user = attempt_login($username, $password);
 
 		if ($found_user) {
