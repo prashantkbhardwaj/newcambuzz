@@ -40,7 +40,7 @@ if (!$conn) {
         <div class='login_title'>
             <span>Workshop for Web Development in PHP and MySql</span>
         </div>
-        <form method="post" action="index.php">
+        <form method="post">
             <div class='login_fields'>
             <div class='login_fields__user'>
                 
