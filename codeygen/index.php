@@ -17,19 +17,11 @@ if (!$conn) {
     $name = mysqli_real_escape_string($conn, htmlspecialchars($_POST['name']));
     $email = mysqli_real_escape_string($conn, htmlspecialchars($_POST['email']));
     $phno = mysqli_real_escape_string($conn, htmlspecialchars($_POST['phno']));
-    $check_query = "SELECT * FROM students";
-    $check_result = mysqli_query($conn, $check_query);
-    confirm_query($check_result);
-    while ($check = mysqli_fetch_assoc($check_result)) {
-      if ($check['regno']==$regno) {
-        $view = "You have already registered."
-      } else {
-        $view = "";
+    
         $query = "INSERT INTO students (regno, name, email, phno)";
         $query .= " VALUES ('{$regno}', '{$name}', '{$email}', '{$phno}')";
         mysqli_query($conn, $query);
-      }
-    }    
+        
   }
 ?>
 <!DOCTYPE html>
@@ -85,7 +77,7 @@ if (!$conn) {
                 <input type='submit' name="submit" value='Submit'>
                 
             </div>
-            <?php echo $view; ?>
+            
         </div>
         <div class='success'>
             <h2>Succefully Registered</h2>
