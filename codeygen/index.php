@@ -40,7 +40,8 @@ if (!$conn) {
         <div class='login_title'>
             <span>Workshop for Web Development in PHP and MySql</span>
         </div>
-        <div class='login_fields'>
+        <form method="post" action="index.php">
+            <div class='login_fields'>
             <div class='login_fields__user'>
                 
                 <input placeholder='Registration Number' name="regno" required type='text'>
@@ -79,6 +80,7 @@ if (!$conn) {
             </div>
             
         </div>
+        </form>
         <div class='success'>
             <h2>Succefully Registered</h2>
             <p>Thank You.</p>
