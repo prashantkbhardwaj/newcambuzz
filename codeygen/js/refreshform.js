@@ -11,9 +11,6 @@ $(document).ready(function() {
             name1: name,
             email1: email,
             phno1: phno
-        }, function(data) {
-            alert(data);
-            $('#form')[0].reset(); // To reset form fields
-        });
+        }, 
     });
 });
