@@ -19,9 +19,7 @@ if (!$conn) {
     
     $query = "INSERT INTO students (regno, name, email, phno)";
     $query .= " VALUES ('{$regno2}', '{$name2}', '{$email2}', '{$phno2}')";
-    mysqli_query($conn, $query);
-        
-  
+    mysqli_query($conn, $query);  
 ?>
 <?php
     mysqli_close($conn);
